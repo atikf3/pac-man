@@ -4,7 +4,27 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES src/main.cpp src/menu.cpp src/menu.h)
+set(SOURCE_FILES
+        src/AbstractEntity.cpp
+        src/AbstractEntity.hh
+        src/Character.cpp
+        src/Character.hh
+        src/IObservable.hh
+        src/IObserver.hh
+        src/ISerializable.hh
+        src/MonsterFactory.cpp
+        src/MonsterFactory.hh
+        src/SprinterMonster.cpp
+        src/SprinterMonster.hh
+        src/TimeManager.cpp
+        src/TimeManager.hh
+        src/ZombieMonster.cpp
+        src/ZombieMonster.hh
+        src/json.hpp
+        src/main.cpp
+        src/menu.cpp
+        src/menu.h
+)
 add_executable(littleBigGame ${SOURCE_FILES})
 
 include_directories(${INCLUDE_DIRS})
