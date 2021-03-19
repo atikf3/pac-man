@@ -24,7 +24,7 @@ set(SOURCE_FILES
         src/main.cpp
         src/menu.cpp
         src/menu.h
-)
+        src/Engine.cpp src/Engine.h src/Console.cpp src/Console.h)
 add_executable(littleBigGame ${SOURCE_FILES})
 
 include_directories(${INCLUDE_DIRS})

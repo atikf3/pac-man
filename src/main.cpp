@@ -2,7 +2,7 @@
 #include "menu.h"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(640, 480), "bubbleMind");
-    Menu::initMenu(window);
+//    sf::RenderWindow window(sf::VideoMode(640, 480), "bubbleMind");
+//    Menu::initMenu(window);
     return 0;
 }
