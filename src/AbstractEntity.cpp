@@ -4,6 +4,8 @@ AbstractEntity::AbstractEntity()
 {
 }
 
+AbstractEntity::~AbstractEntity() {}
+
 void AbstractEntity::Draw()
 {
 }

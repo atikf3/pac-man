@@ -33,6 +33,6 @@ class Character : public AbstractEntity, public IObservable
         virtual void AddObserver(IObserver *observer) override;
         virtual void RemoveObserver(IObserver *observer) override;
 
-        virtual std::string Serialize() override;
+        virtual std::string Serialize();
 };
 #endif
