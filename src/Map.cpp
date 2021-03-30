@@ -7,6 +7,8 @@
 
 Map::~Map(){}
 
+Console Map::console("Map");
+
 Map::Map(float width) {
     if(!font.loadFromFile(FONT_PATH)){
         std::cout << "Font error Map" << std::endl;
@@ -84,27 +86,48 @@ int level[31][28] = {
 //    instance.Start();
 //    int i;
     while (w.isOpen()) {
-//        sf::Event e;
-
         while (w.pollEvent(e)) {
             if (e.type == sf::Event::Closed)
                 w.close();
             else if (e.type == sf::Event::KeyPressed) {
-                std::cout << "kc: " << e.key.code << std::endl;
                 switch (e.key.code) {
                     case sf::Keyboard::Up:
                     case sf::Keyboard::Key::W:
-//                        case sf::Keyboard::W:
-                        std::cout << "Pressed up." << std::endl;
-//                        if(level[pacman.GetY()][pacman.GetX()-1] != 0)
-                        pacman.SetX(pacman.GetY()-1);
-                        if (!tilePacman.move(MAP_TILESET_PACMAN_PATH, sf::Vector2u(16, 16), pacman.GetX() + 1, pacman.GetY()))
-                            return -1;
+                    case sf::Keyboard::Key::Z:
+                        if(level[pacman.GetY() - 1][pacman.GetX()] != 0)
+                            pacman.SetY(pacman.GetY() - 1);
+//                        balls.BallsWasEat(level[pacman.GetY()][pacman.GetX()], scores, gameStatus);
+                        level[pacman.GetY()][pacman.GetX()] = 1;
+
+                        console.print("Pacman went up (KeyEvent, Y - 1)");
                         break;
                     case sf::Keyboard::Down:
-                        std::cout << "Pressed down." << std::endl;
+                    case sf::Keyboard::Key::S:
+                        if(level[pacman.GetY() + 1][pacman.GetX()] != 0)
+                            pacman.SetY(pacman.GetY() + 1);
+//                        balls.BallsWasEat(level[pacman.GetY()][pacman.GetX()], scores, gameStatus);
+                        level[pacman.GetY()][pacman.GetX()] = 1;
+
+                        console.print("Pacman went down (KeyEvent, X + 1)");
+                        break;
+                    case sf::Keyboard::Left:
+                    case sf::Keyboard::Key::A:
+                    case sf::Keyboard::Key::Q:
+                        if(level[pacman.GetY()][pacman.GetX() - 1] != 0)
+                            pacman.SetX(pacman.GetX() - 1);
+                        level[pacman.GetY()][pacman.GetX()] = 1;
+
+                        console.print("Pacman went left (KeyEvent, X - 1)");
+                        break;
+                    case sf::Keyboard::Right:
+                    case sf::Keyboard::Key::D:
+                        if(level[pacman.GetY()][pacman.GetX() + 1] != 0)
+                            pacman.SetX(pacman.GetX() + 1);
+                        level[pacman.GetY()][pacman.GetX()] = 1;
+                        console.print("Pacman went right (KeyEvent, X + 1)");
                         break;
                 }
+                console.print("Pacman at X: " + std::to_string(pacman.GetX()) + " Y: " + std::to_string(pacman.GetY()));
             }
         }
         if (!tilePacman.move(MAP_TILESET_PACMAN_PATH, sf::Vector2u(16, 16), pacman.GetX(), pacman.GetY()))
@@ -112,9 +135,31 @@ int level[31][28] = {
         w.clear();
         w.draw(sprite);
         w.draw(tilePacman);
+        map.RenderHeader(w, 0, 1, 2);
         w.display();
         sleep(0.1);
     }
 
     return 0;
+}
+
+
+void Map::RenderHeader(sf::RenderWindow &window, int score, int time, int fps) {
+    for(int i = 0; i < MAX_NUMBER_OF_ITEMS_MAP; i++) {
+        window.draw(text[i]);
+        text[1].setFont(font);
+        text[1].setFillColor(sf::Color::White);
+        text[1].setString(std::to_string(time));
+        text[1].setPosition(sf::Vector2f(window.getSize().x /(MAX_NUMBER_OF_ITEMS_MAP + 1) * 2, 0));
+
+        text[3].setFont(font);
+        text[3].setFillColor(sf::Color::White);
+        text[3].setString(std::to_string(score));
+        text[3].setPosition(sf::Vector2f(window.getSize().x /(MAX_NUMBER_OF_ITEMS_MAP) * 4, 0));
+
+        text[5].setFont(font);
+        text[5].setFillColor(sf::Color::White);
+        text[5].setString(std::to_string(fps));
+        text[5].setPosition(sf::Vector2f(window.getSize().x /(MAX_NUMBER_OF_ITEMS_MAP + 1) * 6, 0));
+    }
 }

@@ -14,6 +14,7 @@
 #include <iostream>
 #include <unistd.h>
 #include "TileMap.h"
+#include "Console.h"
 
 #define MAX_NUMBER_OF_ITEMS_MAP 6
 #define FONT_PATH "../src/assets/fonts/Roboto-Regular.ttf"
@@ -29,12 +30,14 @@ public:
     TileMap tileGums;
     TileMap tilePacman;
     sf::Sprite sprite;
-
     int MapRenderer(sf::RenderWindow &w, Map map);
 
 protected:
     sf::Font font;
     sf::Text text[MAX_NUMBER_OF_ITEMS_MAP];
     sf::Event e;
+    void RenderHeader(sf::RenderWindow &window, int score, int time, int fps);
 
+private:
+    static Console console;
 };
