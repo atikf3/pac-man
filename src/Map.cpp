@@ -3,7 +3,6 @@
 //
 
 #include "Map.h"
-#include "Pacman.h"
 
 Map::~Map(){}
 
@@ -63,16 +62,13 @@ int level[31][28] = {
                 {0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
         };
-    if (!texture.loadFromFile(MAP_BG_PATH))
-        std::cout << "Map background error." << std::endl;
-    else {
-        texture.loadFromFile(MAP_BG_PATH);
-        sprite.setTexture(texture);
-        sprite.setOrigin(0, -50);
-    }
-    if (!tileGums.load(MAP_TILESET_GUMS_PATH, sf::Vector2u(16, 16), level, 28, 31))
-        std::cout << "Gums Tilemap error" << std::endl;
-//    w = 31;
+//    ResourceManager manager;
+//    manager.loadTextures();
+    sf::Sprite background(ResourceManager::getTexture(MAP_BG));
+    background.setOrigin(0, -50);
+//    if (!tileGums.load(MAP_TILESET_GUMS_PATH, sf::Vector2u(16, 16), level, 28, 31))
+//        std::cout << "Gums Tilemap error" << std::endl;
+////    w = 31;
 //    h = 28;
 //    m[w][h];
 //    static TimeManager& instance = TimeManager::GetInstance();
@@ -130,10 +126,14 @@ int level[31][28] = {
                 console.print("Pacman at X: " + std::to_string(pacman.GetX()) + " Y: " + std::to_string(pacman.GetY()));
             }
         }
+        if (!tileGums.load(MAP_TILESET_GUMS_PATH, sf::Vector2u(16, 16), level, 28, 31))
+            std::cout << "TileMap Error" << std::endl;
         if (!tilePacman.move(MAP_TILESET_PACMAN_PATH, sf::Vector2u(16, 16), pacman.GetX(), pacman.GetY()))
             return -1;
         w.clear();
-        w.draw(sprite);
+//        w.draw(sprite);
+        w.draw(background);
+        w.draw(tileGums);
         w.draw(tilePacman);
         map.RenderHeader(w, 0, 1, 2);
         w.display();

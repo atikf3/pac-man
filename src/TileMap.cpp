@@ -27,10 +27,10 @@ bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, const int 
             sf::Vertex* quad = &m_vertices[(i + j * width) * 4];
 
             // on définit ses quatre coins
-            quad[0].position = sf::Vector2f(i * tileSize.x, j * tileSize.y);
-            quad[1].position = sf::Vector2f((i + 1) * tileSize.x, j * tileSize.y);
-            quad[2].position = sf::Vector2f((i + 1) * tileSize.x, (j + 1) * tileSize.y);
-            quad[3].position = sf::Vector2f(i * tileSize.x, (j + 1) * tileSize.y);
+            quad[0].position = sf::Vector2f(i * tileSize.x, j * tileSize.y + 50);
+            quad[1].position = sf::Vector2f((i + 1) * tileSize.x, j * tileSize.y + 50);
+            quad[2].position = sf::Vector2f((i + 1) * tileSize.x, (j + 1) * tileSize.y + 50);
+            quad[3].position = sf::Vector2f(i * tileSize.x, (j + 1) * tileSize.y + 50);
 
             // on définit ses quatre coordonnées de texture
             quad[0].texCoords = sf::Vector2f(tu * tileSize.x, tv * tileSize.y);

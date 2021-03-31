@@ -24,7 +24,7 @@ set(SOURCE_FILES
         src/main.cpp
         src/menu.cpp
         src/menu.h
-        src/Engine.cpp src/Engine.h src/Console.cpp src/Console.h src/Map.cpp src/Map.h src/TileMap.cpp src/TileMap.h src/Pacman.cpp src/Pacman.h src/Entity.cpp src/Entity.h)
+        src/Engine.cpp src/Engine.h src/Console.cpp src/Console.h src/Map.cpp src/Map.h src/TileMap.cpp src/TileMap.h src/Pacman.cpp src/Pacman.h src/Entity.cpp src/Entity.h src/ResourceManager.cpp src/ResourceManager.h)
 add_executable(littleBigGame ${SOURCE_FILES})
 
 include_directories(${INCLUDE_DIRS})

@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "menu.h"
 #include "Map.h"
+#include "ResourceManager.h"
 
 int main() {
 //    sf::RenderWindow window(sf::VideoMode(640, 480), "bubbleMind");
@@ -11,6 +12,10 @@ int main() {
 //    while (window.isOpen()) {
 //
 //    }
+    ResourceManager manager;
+    if (manager.loadTextures())
+        return -1;
+//    ResourceManager manager;
     map.MapRenderer(window, map);
     return 0;
 //    while (w.isOpen()) {
