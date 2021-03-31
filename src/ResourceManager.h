@@ -8,6 +8,11 @@
 #include <map>
 #include "Console.h"
 
+#define FONT_PATH "fonts/Roboto-Regular.ttf"
+#define MAP_BG "img/map.png"
+#define MAP_TILESET_GUMS_PATH "tileset/tile_gum.png"
+#define MAP_TILESET_PACMAN_PATH "img/pacman.png"
+
 class ResourceManager {
 public:
     ResourceManager();

@@ -6,8 +6,7 @@
 
 bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, const int tiles[31][28], unsigned int width, unsigned int height) {
     // on charge la texture du tileset
-    if (!m_tileset.loadFromFile(tileset))
-        return false;
+    m_tileset = ResourceManager::getTexture(tileset);
 
     // on redimensionne le tableau de vertex pour qu'il puisse contenir tout le niveau
     m_vertices.setPrimitiveType(sf::Quads);
@@ -55,8 +54,7 @@ void TileMap::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 }
 
 int TileMap::move(const std::string& tileset, sf::Vector2u tileSize, int x, int y) {
-    if (!m_tileset.loadFromFile(tileset))
-        return 0;
+    m_tileset = ResourceManager::getTexture(tileset);
 
     m_vertices.setPrimitiveType(sf::Quads);
     m_vertices.resize(30 * 30 * 4);

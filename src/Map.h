@@ -19,10 +19,10 @@
 #include "Pacman.h"
 
 #define MAX_NUMBER_OF_ITEMS_MAP 6
-#define FONT_PATH "../src/assets/fonts/Roboto-Regular.ttf"
-#define MAP_BG "img/map.png"
-#define MAP_TILESET_GUMS_PATH "../src/assets/tileset/tile_gum.png"
-#define MAP_TILESET_PACMAN_PATH "../src/assets/img/pacman.png"
+//#define FONT_PATH "../src/assets/fonts/Roboto-Regular.ttf"
+//#define MAP_BG "img/map.png"
+//#define MAP_TILESET_GUMS_PATH "../src/assets/tileset/tile_gum.png"
+//#define MAP_TILESET_PACMAN_PATH "../src/assets/img/pacman.png"
 
 class Map {
 public:

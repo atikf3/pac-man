@@ -13,7 +13,6 @@ ResourceManager::ResourceManager() {
 }
 
 sf::Texture &ResourceManager::getTexture(std::string const &filename) {
-    console.print(std::string("getTexture(): loading ") + filename);
     auto &map = _instance->_textures;
     // Check if texture is loaded
     auto found = map.find(filename);
@@ -26,6 +25,7 @@ sf::Texture &ResourceManager::getTexture(std::string const &filename) {
 //            throw std::runtime_error("");
             throw std::runtime_error("getTexture() - Failed to load " + ResourceManager::PATH_PREFIX + filename);
         texture.setSmooth(true);
+        console.print(std::string("getTexture(): Loaded texture ") + filename);
         return texture;
     }
 }
@@ -33,7 +33,10 @@ sf::Texture &ResourceManager::getTexture(std::string const &filename) {
 int ResourceManager::loadTextures() {
     console.print("Loading textures...");
     try {
-        ResourceManager::getTexture("img/map.png");
+        ResourceManager::getTexture(MAP_BG);
+        ResourceManager::getTexture(MAP_TILESET_GUMS_PATH);
+        ResourceManager::getTexture(MAP_TILESET_PACMAN_PATH);
+
 //        ResourceManager::getTexture("img/map.png");
     } catch (std::runtime_error e) {
         console.print(std::string("Runtime error: ") + e.what());

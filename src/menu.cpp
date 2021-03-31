@@ -2,12 +2,14 @@
 // Created by AMT on 09/03/2021.
 //
 #include "menu.h"
+#include "ResourceManager.h"
+Console Map::console("Menu");
 
  int Menu::initMenu(sf::RenderWindow& window) {
     Menu menu(window.getSize().x, window.getSize().y);
+    console.print("Loading menu...");
     while (window.isOpen()) {
         sf::Event event;
-
         while (window.pollEvent(event)) {
             switch (event.type) {
                 case sf::Event::KeyReleased:
@@ -15,47 +17,48 @@
                         case sf::Keyboard::Up:
                             menu.MoveUp();
                             break;
-
                         case sf::Keyboard::Down:
                             menu.MoveDown();
                             break;
-
                         case sf::Keyboard::Return:
                             switch (menu.GetPressedItem()) {
                                 case 0:
-                                    std::cout << "Play button has been pressed" << std::endl;
+                                    console.print("Loading game...");
+                                    return map.MapRenderer(window, map);
                                     break;
                                 case 1:
-                                    std::cout << "Option button has been pressed" << std::endl;
+                                    console.("Loading options...");
+                                    // TODO: Implement options
+                                    console.print("This is not implemented!");
+                                    std::cout << "Option button has been pressed (not implemented)" << std::endl;
+                                    return -1;
                                     break;
                                 case 2:
+                                    console.print("Closing window!");
                                     window.close();
+                                    return 0;
                                     break;
                             }
-
                             break;
                     }
-
                     break;
                 case sf::Event::Closed:
                     window.close();
-
                     break;
 
             }
         }
 
         window.clear();
-
         menu.draw(window);
-
         window.display();
     }
     return 0;
 }
 
 Menu::Menu(float width, float height) {
-    if (!font.loadFromFile("../src/assets/fonts/Roboto-Regular.ttf")) {
+    console.("Loading menu...");
+    if (!font.loadFromFile(FONT_PATH)) {
         std::cout << "Font not found!" << std::endl;
     }
 
