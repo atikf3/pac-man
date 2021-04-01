@@ -66,11 +66,16 @@ int Map::MapRenderer(sf::RenderWindow &w, Map map) {
     background.setOrigin(0, -50);
     GameState gameState;
     gameState.init();
+    gameState.SetState(GameState::Type::Init);
     Pacman pacman;
     FPS fpsInstance;
     static TimeManager &timeManagerInstance = TimeManager::GetInstance();
     timeManagerInstance.Start();
     int timeDiff = 0;
+    gums = 0;
+    location = 0;
+    score = 0;
+    gameState.SetState(GameState::Type::Playing);
     while (w.isOpen()) {
         while (w.pollEvent(e)) {
             if (e.type == sf::Event::Closed)
@@ -80,7 +85,13 @@ int Map::MapRenderer(sf::RenderWindow &w, Map map) {
                     case sf::Keyboard::Up:
                     case sf::Keyboard::Key::W:
                     case sf::Keyboard::Key::Z:
-                        if(level[pacman.GetY() - 1][pacman.GetX()] != 0)
+                        location =  level[pacman.GetY() - 1][pacman.GetX()];
+                        if (location == 2 || location == 3) {
+                            score += location == 2 ? 1 : 2;
+                            gums++;
+                        }
+
+                        if(location != 0)
                             pacman.SetY(pacman.GetY() - 1);
                         level[pacman.GetY()][pacman.GetX()] = 1;
 
@@ -88,6 +99,12 @@ int Map::MapRenderer(sf::RenderWindow &w, Map map) {
                         break;
                     case sf::Keyboard::Down:
                     case sf::Keyboard::Key::S:
+                        location =  level[pacman.GetY() + 1][pacman.GetX()];
+                        if (location == 2 || location == 3) {
+                            score += location == 2 ? 1 : 2;
+                            gums++;
+                        }
+
                         if(level[pacman.GetY() + 1][pacman.GetX()] != 0)
                             pacman.SetY(pacman.GetY() + 1);
                         level[pacman.GetY()][pacman.GetX()] = 1;
@@ -97,6 +114,11 @@ int Map::MapRenderer(sf::RenderWindow &w, Map map) {
                     case sf::Keyboard::Left:
                     case sf::Keyboard::Key::A:
                     case sf::Keyboard::Key::Q:
+                        location =  level[pacman.GetY()][pacman.GetX() - 1];
+                        if (location == 2 || location == 3) {
+                            score += 2;
+                            gums++;
+                        }
                         if(level[pacman.GetY()][pacman.GetX() - 1] != 0)
                             pacman.SetX(pacman.GetX() - 1);
                         level[pacman.GetY()][pacman.GetX()] = 1;
@@ -105,6 +127,11 @@ int Map::MapRenderer(sf::RenderWindow &w, Map map) {
                         break;
                     case sf::Keyboard::Right:
                     case sf::Keyboard::Key::D:
+                        location =  level[pacman.GetY()][pacman.GetX() + 1];
+                        if (location == 2 || location == 3) {
+                            score += location == 2 ? 1 : 2;
+                            gums++;
+                        }
                         if(level[pacman.GetY()][pacman.GetX() + 1] != 0)
                             pacman.SetX(pacman.GetX() + 1);
                         level[pacman.GetY()][pacman.GetX()] = 1;
@@ -122,8 +149,15 @@ int Map::MapRenderer(sf::RenderWindow &w, Map map) {
         timeDiff = timeManagerInstance.GetElapsedTime();
         if (timeDiff > 0)
             console.print("Time difference of " + std::to_string(timeDiff) + "s between last update! time :");
-        if (pacman.GetY() == 24)
-            console.print("step 24");
+        if (gums >= 244) {
+            console.print("Got all gums!");
+            gameState.SetState(GameState::Type::End);
+        }
+        if (gameState.GetState() == GameState::Type::End) {
+            w.clear();
+            console.print("loading end!");
+            return EndScreen::initEnd(w, pacman.GetLife());
+        }
         w.clear();
         w.draw(background);
         w.draw(tileGums);
@@ -131,7 +165,7 @@ int Map::MapRenderer(sf::RenderWindow &w, Map map) {
         fpsInstance.update();
         std::ostringstream ss;
         ss << fpsInstance.getFPS();
-        map.RenderHeader(w, 0, timeManagerInstance.GetStartedTime(), std::stoi(ss.str()));
+        map.RenderHeader(w, score, timeManagerInstance.GetStartedTime(), std::stoi(ss.str()));
         w.display();
 //        sleep(2); // TODO: could disturb fps? seems no
     }
@@ -139,6 +173,9 @@ int Map::MapRenderer(sf::RenderWindow &w, Map map) {
     return 0;
 }
 
+void Map::HandleGumEat(int where) {
+
+}
 
 void Map::RenderHeader(sf::RenderWindow &window, int score, int time, int fps) {
     for(int i = 0; i < MAX_NUMBER_OF_ITEMS_MAP; i++) {

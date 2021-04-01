@@ -20,6 +20,7 @@
 #include "Pacman.h"
 #include "FPS.h"
 #include "GameState.h"
+#include "EndScr.h"
 #include "TimeManager.hh"
 
 #define MAX_NUMBER_OF_ITEMS_MAP 6
@@ -38,6 +39,9 @@ public:
     sf::Sprite sprite;
     int MapRenderer(sf::RenderWindow &w, Map map);
 
+    int gums;
+    int location;
+    int score;
 protected:
     sf::Font font;
     sf::Text text[MAX_NUMBER_OF_ITEMS_MAP];
@@ -46,4 +50,5 @@ protected:
 
 private:
     static Console console;
+    void HandleGumEat(int where);
 };

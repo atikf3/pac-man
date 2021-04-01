@@ -2,6 +2,8 @@
 #include "Menu.h"
 #include "ResourceManager.h"
 
+#include "EndScr.h"
+
 int main() {
     sf::RenderWindow window(sf::VideoMode(512, 562), "Pac-Man");
     window.setFramerateLimit(60);

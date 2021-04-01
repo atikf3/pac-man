@@ -14,19 +14,18 @@ public:
     GameState();
     ~GameState();
     enum Type {
+        Failure = -1,
         None = 0,
         Init = 1,
         Playing = 2,
         End = 3,
-        Failure = -1,
     };
     void keyPressed(int kCode);
     void keyReleased(int kCode);
     Type GetState();
     void SetState(Type _state);
     static void init();
-    static Map* map;
 private:
-    static Console* console;
+    static Console console;
     Type status;
 };
