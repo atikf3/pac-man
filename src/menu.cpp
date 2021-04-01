@@ -2,11 +2,11 @@
 // Created by AMT on 09/03/2021.
 //
 #include "menu.h"
-#include "ResourceManager.h"
-Console Map::console("Menu");
+Console Menu::console("Menu");
 
- int Menu::initMenu(sf::RenderWindow& window) {
+int Menu::initMenu(sf::RenderWindow& window) {
     Menu menu(window.getSize().x, window.getSize().y);
+    Map map(window.getSize().x);
     console.print("Loading menu...");
     while (window.isOpen()) {
         sf::Event event;
@@ -27,7 +27,7 @@ Console Map::console("Menu");
                                     return map.MapRenderer(window, map);
                                     break;
                                 case 1:
-                                    console.("Loading options...");
+                                    console.print("Loading options...");
                                     // TODO: Implement options
                                     console.print("This is not implemented!");
                                     std::cout << "Option button has been pressed (not implemented)" << std::endl;
@@ -57,7 +57,7 @@ Console Map::console("Menu");
 }
 
 Menu::Menu(float width, float height) {
-    console.("Loading menu...");
+    console.print("Loading menu...");
     if (!font.loadFromFile(FONT_PATH)) {
         std::cout << "Font not found!" << std::endl;
     }

@@ -67,6 +67,7 @@ int Map::MapRenderer(sf::RenderWindow &w, Map map) {
     // TODO: fps?
     // TODO: time?
     Pacman pacman;
+    sf::Clock clock;
     while (w.isOpen()) {
         while (w.pollEvent(e)) {
             if (e.type == sf::Event::Closed)

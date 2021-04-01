@@ -4,6 +4,9 @@
 
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "console.h"
+#include "ResourceManager.h"
+#include "map.h"
 #include <iostream>
 
 #define MAX_ITEMS 3
