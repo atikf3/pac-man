@@ -1,40 +1,35 @@
 #include "TimeManager.hh"
 
-TimeManager* TimeManager::instance=0;
-std::chrono::time_point<std::chrono::system_clock> start, update, newUpdate;
+using namespace std::chrono;
 
-TimeManager::TimeManager()
-{
-}
+TimeManager TimeManager::tm;
 
-TimeManager::~TimeManager()
-{
-}
+TimeManager::TimeManager() {}
+TimeManager::~TimeManager() {}
 
-TimeManager &TimeManager::GetInstance() {
-    if(!instance){
-        instance = new TimeManager;
-    }
-    return *instance;
+TimeManager& TimeManager::GetInstance() {
+//    if(!instance){
+//        instance = new TimeManager;
+//    }
+//    return *instance;
+//    static TimeManager _;
+    return tm;
 }
 
 void TimeManager::Start() {
-    start = std::chrono::system_clock::now();
+    start = system_clock::now();
+    up = up2 = start;
 }
 
 void TimeManager::Update() {
-    update = newUpdate;
-    newUpdate = std::chrono::system_clock::now();
-}
-
-unsigned int TimeManager::GetStartedTime() const {
-    unsigned int start_elapsed = std::chrono::duration_cast<std::chrono::milliseconds >
-            (newUpdate-start).count();
-    return start_elapsed;
+    up = up2;
+    up2 = system_clock::now();
 }
 
 unsigned int TimeManager::GetElapsedTime() const {
-    unsigned int update_elapsed = std::chrono::duration_cast<std::chrono::milliseconds >
-            (newUpdate-update).count();
-    return update_elapsed;
+    return up2 != start ? duration_cast<seconds>(up2 - up).count() : 0 ;
+}
+
+unsigned int TimeManager::GetStartedTime() const {
+    return duration_cast<seconds>(up2 - start).count();
 }

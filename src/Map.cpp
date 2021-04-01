@@ -2,9 +2,7 @@
 // Created by AMT on 24/03/2021.
 //
 
-#include <sstream>
 #include "Map.h"
-#include "FPS.h"
 
 Map::~Map(){}
 
@@ -66,9 +64,11 @@ int Map::MapRenderer(sf::RenderWindow &w, Map map) {
             };
     sf::Sprite background(ResourceManager::getTexture(MAP_BG));
     background.setOrigin(0, -50);
-    // TODO: time?
     Pacman pacman;
-    FPS fps;
+    FPS fpsInstance;
+    static TimeManager &timeManagerInstance = TimeManager::GetInstance();
+    timeManagerInstance.Start();
+    int timeDiff = 0;
     while (w.isOpen()) {
         while (w.pollEvent(e)) {
             if (e.type == sf::Event::Closed)
@@ -116,16 +116,20 @@ int Map::MapRenderer(sf::RenderWindow &w, Map map) {
             return -1;
         if (!tilePacman.move(MAP_TILESET_PACMAN_PATH, sf::Vector2u(16, 16), pacman.GetX(), pacman.GetY()))
             return -1;
+        timeManagerInstance.Update();
+        timeDiff = timeManagerInstance.GetElapsedTime();
+        if (timeDiff > 0)
+            console.print("Time difference of " + std::to_string(timeDiff) + "s between last update! time :");
         w.clear();
         w.draw(background);
         w.draw(tileGums);
         w.draw(tilePacman);
-        fps.update();
+        fpsInstance.update();
         std::ostringstream ss;
-        ss << fps.getFPS();
-        map.RenderHeader(w, 0, 1, std::stoi(ss.str()));
+        ss << fpsInstance.getFPS();
+        map.RenderHeader(w, 0, timeManagerInstance.GetStartedTime(), std::stoi(ss.str()));
         w.display();
-        sleep(0.1); // TODO: could disturb fps? seems no
+//        sleep(2); // TODO: could disturb fps? seems no
     }
 
     return 0;

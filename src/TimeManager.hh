@@ -1,21 +1,22 @@
-#ifndef TIME_MANAGER_HH
-#define TIME_MANAGER_HH
-#include <iostream>
 #include <chrono>
+#pragma once
+using namespace std::chrono;
 
-class TimeManager
-{
-    private:
-        TimeManager& operator= (const TimeManager&);
-        static TimeManager* instance;
-    public:
-        TimeManager();
-        ~TimeManager();
-        TimeManager (const TimeManager&);
-        static TimeManager& GetInstance();
-        void Start();
-        void Update();
-        unsigned int GetElapsedTime() const;
-        unsigned int GetStartedTime() const;
+class TimeManager {
+private:
+    time_point<system_clock> start;
+    time_point<system_clock> up;
+    time_point<system_clock> up2;
+public:
+    static TimeManager& GetInstance();
+    void Start();
+    void Update();
+    unsigned int GetElapsedTime() const;
+    unsigned int GetStartedTime() const;
+    TimeManager(const TimeManager &_) = delete;
+    TimeManager &operator=(const TimeManager &_) = delete;
+//    TimeManager &operator=(TimeManager &&_) = delete;
+    TimeManager();
+    ~TimeManager();
+    static TimeManager tm;
 };
-#endif

@@ -1,5 +1,4 @@
 #include <SFML/Graphics.hpp>
-#include "Map.h"
 #include "Menu.h"
 #include "ResourceManager.h"
 

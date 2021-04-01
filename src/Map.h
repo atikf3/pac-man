@@ -12,11 +12,14 @@
 #include <SFML/Graphics/Font.hpp>
 #include <string>
 #include <iostream>
+#include <sstream>
 #include <unistd.h>
 #include "TileMap.h"
 #include "Console.h"
 #include "ResourceManager.h"
 #include "Pacman.h"
+#include "FPS.h"
+#include "TimeManager.hh"
 
 #define MAX_NUMBER_OF_ITEMS_MAP 6
 //#define FONT_PATH "../src/assets/fonts/Roboto-Regular.ttf"
