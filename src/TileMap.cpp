@@ -13,8 +13,8 @@ bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, const int 
     m_vertices.resize(width * height * 4);
 
     // on remplit le tableau de vertex, avec un quad par tuile
-    for (unsigned int i = 0; i < width; ++i)
-        for (unsigned int j = 0; j < height; ++j) {
+    for (unsigned int j = 0; j < width; ++j)
+        for (unsigned int i = 0; i < height; ++i) {
             // on récupère le numéro de tuile courant
             int tileNumber = tiles[i][j/** width*/];
 
@@ -23,13 +23,13 @@ bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, const int 
             int tv = tileNumber / (m_tileset.getSize().x / tileSize.x);
 
             // on récupère un pointeur vers le quad à définir dans le tableau de vertex
-            sf::Vertex* quad = &m_vertices[(i + j * width) * 4];
+            sf::Vertex* quad = &m_vertices[(j + (i * width)) * 4];
 
             // on définit ses quatre coins
-            quad[0].position = sf::Vector2f(i * tileSize.x, j * tileSize.y + 50);
-            quad[1].position = sf::Vector2f((i + 1) * tileSize.x, j * tileSize.y + 50);
-            quad[2].position = sf::Vector2f((i + 1) * tileSize.x, (j + 1) * tileSize.y + 50);
-            quad[3].position = sf::Vector2f(i * tileSize.x, (j + 1) * tileSize.y + 50);
+            quad[0].position = sf::Vector2f(j * tileSize.x, i * tileSize.y + 50);
+            quad[1].position = sf::Vector2f((j + 1) * tileSize.x, i * tileSize.y + 50);
+            quad[2].position = sf::Vector2f((j + 1) * tileSize.x, (i + 1) * tileSize.y + 50);
+            quad[3].position = sf::Vector2f(j * tileSize.x, (i + 1) * tileSize.y + 50);
 
             // on définit ses quatre coordonnées de texture
             quad[0].texCoords = sf::Vector2f(tu * tileSize.x, tv * tileSize.y);
