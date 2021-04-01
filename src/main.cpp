@@ -1,8 +1,11 @@
 #include <SFML/Graphics.hpp>
-#include "menu.h"
+#include "Map.h"
+#include "ResourceManager.h"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(640, 480), "bubbleMind");
-    Menu::initMenu(window);
-    return 0;
+    sf::RenderWindow window(sf::VideoMode(512, 562), "Pac-Man");
+    ResourceManager manager;
+    if (manager.loadTextures())
+        return -1;
+    return Menu::initMenu(window);
 }

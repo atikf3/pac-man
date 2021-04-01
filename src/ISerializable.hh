@@ -6,7 +6,7 @@
 class ISerializable {
     public:
         virtual ~ISerializable() {}
-        virtual std::string Serialize() = 0;
+//        virtual std::string Serialize() = 0;
 };
 
 #endif

@@ -17,12 +17,11 @@ class Menu {
         void MoveUp();
         void MoveDown();
         int GetPressedItem() { return selectedItemIndex; };
-//        static int initMenu(sf::RenderWindow *window);
-    static int initMenu(sf::RenderWindow &window);
+        static int initMenu(sf::RenderWindow &window);
 private:
         int selectedItemIndex;
         sf::Font font;
         sf::Text menu[MAX_ITEMS];
-
+        static Console console;
 
 };

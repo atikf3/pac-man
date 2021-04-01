@@ -28,9 +28,10 @@ Character *MonsterFactory::Unserialize(const std::string &jsonStr)
 {
     json object = json::parse(jsonStr);
 
-    if (object["type"] == "ZombieMonster")
-        return new ZombieMonster(object["x"], object["y"], object["life"]);
-    else if (object["type"] == "SprinterMonster")
-        return new SprinterMonster(object["x"], object["y"], object["life"]);
+    // TODO: Waiting for WP Fix
+//    if (object["type"] == "ZombieMonster")
+//        return new ZombieMonster(object["x"], object["y"], object["life"]);
+//    else if (object["type"] == "SprinterMonster")
+//        return new SprinterMonster(object["x"], object["y"], object["life"]);
    return nullptr;
 }
