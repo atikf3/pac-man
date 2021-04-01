@@ -7,7 +7,6 @@ Console Menu::console("Menu");
 int Menu::initMenu(sf::RenderWindow& window) {
     Menu menu(window.getSize().x, window.getSize().y);
     Map map(window.getSize().x);
-    console.print("Loading menu...");
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -57,7 +56,7 @@ int Menu::initMenu(sf::RenderWindow& window) {
 }
 
 Menu::Menu(float width, float height) {
-    console.print("Loading menu...");
+    console.print("Loading menu ...");
     if (!font.loadFromFile(FONT_PATH)) {
         std::cout << "Font not found!" << std::endl;
     }

@@ -19,6 +19,7 @@
 #include "ResourceManager.h"
 #include "Pacman.h"
 #include "FPS.h"
+#include "GameState.h"
 #include "TimeManager.hh"
 
 #define MAX_NUMBER_OF_ITEMS_MAP 6

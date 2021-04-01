@@ -64,6 +64,8 @@ int Map::MapRenderer(sf::RenderWindow &w, Map map) {
             };
     sf::Sprite background(ResourceManager::getTexture(MAP_BG));
     background.setOrigin(0, -50);
+    GameState gameState;
+    gameState.init();
     Pacman pacman;
     FPS fpsInstance;
     static TimeManager &timeManagerInstance = TimeManager::GetInstance();
@@ -120,6 +122,8 @@ int Map::MapRenderer(sf::RenderWindow &w, Map map) {
         timeDiff = timeManagerInstance.GetElapsedTime();
         if (timeDiff > 0)
             console.print("Time difference of " + std::to_string(timeDiff) + "s between last update! time :");
+        if (pacman.GetY() == 24)
+            console.print("step 24");
         w.clear();
         w.draw(background);
         w.draw(tileGums);
