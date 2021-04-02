@@ -158,6 +158,10 @@ int Map::MapRenderer(sf::RenderWindow &w, Map map) {
             console.print("loading end!");
             return EndScreen::initEnd(w, pacman.GetLife());
         }
+        if (pacman.GetLife()<=0){
+            gameState.SetState(GameState::Type::End);
+            console.print("Got all gums!");
+        }
         w.clear();
         w.draw(background);
         w.draw(tileGums);
