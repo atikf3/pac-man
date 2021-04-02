@@ -13,5 +13,7 @@ public:
     ~Pacman();
 
     virtual void Update();
+
+    void ReinitPosition();
 };
 

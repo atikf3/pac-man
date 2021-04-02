@@ -12,6 +12,11 @@ Pacman::Pacman() {
 
 Pacman::~Pacman() noexcept {}
 
+void Pacman::ReinitPosition(){
+    this->SetX(13);
+    this->SetY(23);
+}
+
 void Pacman::Update() {
     // TODO: ???
 }
